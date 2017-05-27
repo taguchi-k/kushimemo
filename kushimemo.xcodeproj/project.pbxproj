@@ -123,11 +123,11 @@
 		96B34EC31ED9071800BE1659 = {
 			isa = PBXGroup;
 			children = (
+				7BD58F823588263A00666A72 /* Frameworks */,
+				4A844B832C7C1052007E1F89 /* Pods */,
+				96B34ECD1ED9071800BE1659 /* Products */,
 				96B34ECE1ED9071800BE1659 /* kushimemo */,
 				96B34EE31ED9071800BE1659 /* kushimemoTests */,
-				96B34ECD1ED9071800BE1659 /* Products */,
-				4A844B832C7C1052007E1F89 /* Pods */,
-				7BD58F823588263A00666A72 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -174,6 +174,7 @@
 				96B34EF51ED9085800BE1659 /* MemoList */,
 			);
 			name = Controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		96B34EF01ED9081F00BE1659 /* Helpers */ = {
@@ -182,15 +183,17 @@
 				96B34F021ED90A0400BE1659 /* RealmDaoHelper.swift */,
 			);
 			name = Helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		96B34EF11ED9082C00BE1659 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				96B34F041ED90A2E00BE1659 /* MemoModel.swift */,
 				96B34F061ED90A4700BE1659 /* MemoDao.swift */,
+				96B34F041ED90A2E00BE1659 /* MemoModel.swift */,
 			);
 			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		96B34EF21ED9083700BE1659 /* Others */ = {
@@ -202,6 +205,7 @@
 				96B34F0C1ED90AB400BE1659 /* Localizable.strings */,
 			);
 			name = Others;
+			path = Others;
 			sourceTree = "<group>";
 		};
 		96B34EF31ED9084100BE1659 /* Utils */ = {
@@ -210,6 +214,7 @@
 				96B34EFC1ED9092000BE1659 /* Striing+Lines.swift */,
 			);
 			name = Utils;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		96B34EF41ED9084900BE1659 /* Views */ = {
@@ -220,24 +225,27 @@
 				96B34F101ED90AF900BE1659 /* MemoListTableViewProvider.swift */,
 			);
 			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		96B34EF51ED9085800BE1659 /* MemoList */ = {
 			isa = PBXGroup;
 			children = (
-				96B34F081ED90A6E00BE1659 /* MemoListViewController.swift */,
 				96B34F221ED90C5500BE1659 /* MemoListViewController.storyboard */,
+				96B34F081ED90A6E00BE1659 /* MemoListViewController.swift */,
 			);
 			name = MemoList;
+			path = MemoList;
 			sourceTree = "<group>";
 		};
 		96B34EF61ED9086000BE1659 /* Memo */ = {
 			isa = PBXGroup;
 			children = (
-				96B34F001ED909DB00BE1659 /* MemoViewController.swift */,
 				96B34F241ED90F8100BE1659 /* MemoViewController.storyboard */,
+				96B34F001ED909DB00BE1659 /* MemoViewController.swift */,
 			);
 			name = Memo;
+			path = Memo;
 			sourceTree = "<group>";
 		};
 		96B34EF71ED908BA00BE1659 /* Views */ = {
@@ -247,6 +255,7 @@
 				96B34F201ED90C3000BE1659 /* MemoListTableViewProviderTests.swift */,
 			);
 			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		96B34EF81ED908C200BE1659 /* Utils */ = {
@@ -255,6 +264,7 @@
 				96B34EFE1ED9099900BE1659 /* Striing+LinesTests.swift */,
 			);
 			name = Utils;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		96B34EF91ED908CC00BE1659 /* Models */ = {
@@ -264,6 +274,7 @@
 				96B34F1A1ED90BBC00BE1659 /* MemoModelTests.swift */,
 			);
 			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		96B34EFA1ED908D600BE1659 /* Moc */ = {
@@ -272,6 +283,7 @@
 				96B34F161ED90B7D00BE1659 /* MocMemoListViewController.swift */,
 			);
 			name = Moc;
+			path = Moc;
 			sourceTree = "<group>";
 		};
 		96B34EFB1ED908DF00BE1659 /* Controllers */ = {
@@ -281,6 +293,7 @@
 				96B34F141ED90B5800BE1659 /* MemoViewControllerTests.swift */,
 			);
 			name = Controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -535,6 +548,7 @@
 				96B34ED91ED9071800BE1659 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
