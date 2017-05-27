@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  kushimemo
+
+  Created by Kentaro on 2017/05/27.
+  Copyright © 2017年 Kentao Taguchi. All rights reserved.
+*/
+
+// MARK: - メモ一覧画面
+"LIST_NODATA" = "メモなし";
+"LIST_COUNT" = "%d件のメモ";
+"LIST_DELETE_ALL" = "すべて削除";
+"LIST_ADD_MEMO" = "メモ追加";
+"LIST_CANCEL" = "キャンセル";
+
+//　MARK: - メモ画面
+"MEMO_DONE" = "完了";
