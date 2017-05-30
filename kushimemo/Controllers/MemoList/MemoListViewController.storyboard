@@ -64,14 +64,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22:22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVk-fb-wgN">
-                                                    <rect key="frame" x="20" y="35" width="37.5" height="17"/>
+                                                    <rect key="frame" x="20" y="36.5" width="37.5" height="17"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="本文" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyg-Et-nsD">
-                                                    <rect key="frame" x="61.5" y="35" width="29" height="17"/>
+                                                    <rect key="frame" x="61.5" y="36.5" width="29" height="17"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
@@ -84,10 +84,12 @@
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2FJ-BJ-AE4" secondAttribute="trailing" constant="20" id="7lM-hN-rpK"/>
                                                 <constraint firstItem="2FJ-BJ-AE4" firstAttribute="top" secondItem="RVd-0K-dNX" secondAttribute="top" constant="10" id="8qZ-gW-DVj"/>
                                                 <constraint firstItem="2FJ-BJ-AE4" firstAttribute="leading" secondItem="RVd-0K-dNX" secondAttribute="leading" constant="20" id="Nvh-mR-3Kt"/>
+                                                <constraint firstAttribute="bottom" secondItem="hyg-Et-nsD" secondAttribute="bottom" constant="6" id="Opp-QN-cJy"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hyg-Et-nsD" secondAttribute="trailing" constant="20" id="RDu-ip-0eI"/>
-                                                <constraint firstItem="hyg-Et-nsD" firstAttribute="top" secondItem="2FJ-BJ-AE4" secondAttribute="bottom" constant="4" id="Z39-4g-PM5"/>
+                                                <constraint firstAttribute="bottom" secondItem="NVk-fb-wgN" secondAttribute="bottom" constant="6" id="SoI-Yk-Aqe"/>
+                                                <constraint firstItem="hyg-Et-nsD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2FJ-BJ-AE4" secondAttribute="bottom" constant="4" id="Z39-4g-PM5"/>
                                                 <constraint firstItem="hyg-Et-nsD" firstAttribute="leading" secondItem="NVk-fb-wgN" secondAttribute="trailing" constant="4" id="dzg-zx-N1h"/>
-                                                <constraint firstItem="NVk-fb-wgN" firstAttribute="top" secondItem="2FJ-BJ-AE4" secondAttribute="bottom" constant="4" id="wz2-5v-Om5"/>
+                                                <constraint firstItem="NVk-fb-wgN" firstAttribute="top" relation="greaterThanOrEqual" secondItem="2FJ-BJ-AE4" secondAttribute="bottom" constant="4" id="wz2-5v-Om5"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
