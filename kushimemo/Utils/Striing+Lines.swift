@@ -15,7 +15,10 @@ extension String {
         var lines = [String]()
 
         self.enumerateLines { (line, stop) in
-            lines.append(line)
+
+            if !line.isEmpty {
+                lines.append(line)
+            }
         }
         return lines
     }

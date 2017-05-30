@@ -33,7 +33,10 @@ class Striing_LinesTests: XCTestCase {
 
     func testLinesEmpty() {
 
-        let text = "1行目\n"
+        let text = "\n1行目\n"
         XCTAssertEqual(text.lines, ["1行目"])
+
+        let text2 = "\n1行目\n2行目\n\n\n3行目"
+        XCTAssertEqual(text2.lines, ["1行目", "2行目", "3行目"])
     }
 }
