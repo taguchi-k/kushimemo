@@ -1,5 +1,5 @@
 //
-//  MemoListTableViewProvider.swift
+//  MemoListProvider.swift
 //  kushimemo
 //
 //  Created by Kentaro on 2017/05/27.
@@ -9,25 +9,34 @@
 import UIKit
 import STV_Extensions
 
-protocol MemoListTableViewProviderDelegate {
+protocol MemoListProviderDelegate {
     func didDeleteRows()
 }
 
-final class MemoListTableViewProvider: NSObject {
+final class MemoListProvider: NSObject {
 
     var memos = [MemoModel]()
-    var delegate: MemoListTableViewProviderDelegate?
+    var delegate: MemoListProviderDelegate?
 
     func add(memos: [MemoModel]) {
         self.memos = memos
     }
 
-    func findMemo(row: Int) -> MemoModel {
-        return memos[row]
+    /// 該当のメモを取得する
+    ///
+    /// - Parameter index: TableViewのインデックス
+    /// - Returns: メモ
+    func memo(index: Int) -> MemoModel {
+
+        guard index < memos.count else {
+            fatalError("memosの要素数を超えました。")
+        }
+        return memos[index]
     }
 }
 
-extension MemoListTableViewProvider: UITableViewDataSource {
+// MARK: - UITableViewDataSource
+extension MemoListProvider: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return memos.count

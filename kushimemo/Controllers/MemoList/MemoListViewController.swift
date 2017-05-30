@@ -14,7 +14,9 @@ final class MemoListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet fileprivate weak var toolbar: UIToolbar!
     @IBOutlet fileprivate weak var memoCountLabel: UIBarButtonItem!
-    fileprivate let dataSource = MemoListTableViewProvider()
+
+    fileprivate let dataSource = MemoListProvider()
+    fileprivate var alert: UIAlertController!
 
     // MARK: - LifeCycles
     override func viewDidLoad() {
@@ -44,16 +46,28 @@ extension MemoListViewController: UITableViewDelegate {
 
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let memo = dataSource.findMemo(row: indexPath.row)
+        guard !isEditing else { return }
+
+        let memo = dataSource.memo(index: indexPath.row)
         let vc = MemoViewController.create(memo: memo)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
 
-// MARK: - MemoListTableViewProviderDelegate
-extension MemoListViewController: MemoListTableViewProviderDelegate {
+// MARK: - MemoListProviderDelegate
+extension MemoListViewController: MemoListProviderDelegate {
 
     func didDeleteRows() {
+        reloadData()
+    }
+}
+
+// MARK: - MemoAlertHelperDelegate
+extension MemoListViewController: MemoAlertHelperDelegate {
+
+    func deleteAll() {
+        MemoDao.deleteAll()
+        dataSource.add(memos: [])
         reloadData()
     }
 }
@@ -120,20 +134,7 @@ private extension MemoListViewController {
     }
 
     func showActionSheet() {
-
-        let cancelAction = UIAlertAction(title: "LIST_CANCEL".localized(), style: .cancel)
-        let deleteAllAction = UIAlertAction(title: "LIST_DELETE_ALL".localized(),
-                                            style: .destructive) { _ in self.deleteAll() }
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        actionSheet.addAction(cancelAction)
-        actionSheet.addAction(deleteAllAction)
-
-        present(actionSheet, animated: true)
-    }
-    
-    func deleteAll() {
-        MemoDao.deleteAll()
-        dataSource.add(memos: [])
-        reloadData()
+        alert = MemoAlertHelper().deleteMemo(delegate: self)
+        present(alert, animated: true) { self.alert = nil }
     }
 }

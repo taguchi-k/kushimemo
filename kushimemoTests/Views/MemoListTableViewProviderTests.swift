@@ -1,5 +1,5 @@
 //
-//  MemoListTableViewProviderTests.swift
+//  MemoListProviderTests.swift
 //  kushimemo
 //
 //  Created by Kentaro on 2017/05/27.
@@ -9,9 +9,9 @@
 import XCTest
 @testable import kushimemo
 
-class MemoListTableViewProviderTests: XCTestCase {
+class MemoListProviderTests: XCTestCase {
 
-    let dataSource = MemoListTableViewProvider()
+    let dataSource = MemoListProvider()
 
     override func setUp() {
         super.setUp()

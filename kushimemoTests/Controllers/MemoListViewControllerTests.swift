@@ -37,6 +37,6 @@ class MemoListViewControllerTests: XCTestCase {
     }
 
     func testTableViewDataSource() {
-        XCTAssertTrue(vc.tableView.dataSource is MemoListTableViewProvider)
+        XCTAssertTrue(vc.tableView.dataSource is MemoListProvider)
     }
 }
