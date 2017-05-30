@@ -25,7 +25,16 @@ final class MemoDao {
     }
 
     static func update(model: MemoModel) {
-        _ = dao.update(d: model)
+
+        guard let object = dao.findFirst(key: model.memoID as AnyObject) else {
+            return
+        }
+
+        _ = dao.update(d: object, block: { () -> Void in
+            object.title = model.title
+            object.lastModify = model.lastModify
+            object.text = model.text
+        })
     }
 
     static func delete(memoID: Int) {
