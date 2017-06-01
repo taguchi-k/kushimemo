@@ -13,7 +13,6 @@ final class MemoViewController: UIViewController {
 
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var textViewBottom: NSLayoutConstraint!
-
     fileprivate var memo: MemoModel?
 
     // MARK: - Factory
@@ -38,12 +37,25 @@ final class MemoViewController: UIViewController {
     }
 }
 
+// MARK: - UITextViewDelegate
+extension MemoViewController: UITextViewDelegate {
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+
+        guard !textView.text.isEmpty else { return }
+
+        if let memo = memo {
+            let model = memo
+            model.memo = textView.text
+            MemoDao.update(model: model)
+        } else {
+            MemoDao.add(memo: textView.text)
+        }
+    }
+}
+
 // MARK: - private
 private extension MemoViewController {
-
-    var isNew: Bool {
-        return memo == nil
-    }
 
     // MARK: - setup
     func setup() {
@@ -53,20 +65,15 @@ private extension MemoViewController {
     }
 
     func setupTextView() {
-        if let memo = memo {
-            textView.text = memo.title + Constants.lineFeed + memo.text
-        }
-
+        textView.text = memo?.memo
         textView.becomeFirstResponder()
     }
 
     func setupDoneButton() {
-
-        let doneButton = UIBarButtonItem(title: "MEMO_DONE".localized(),
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(done))
-        navigationItem.rightBarButtonItem = doneButton
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "MEMO_DONE".localized(),
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(done))
     }
 
     @objc func done() {
@@ -74,8 +81,8 @@ private extension MemoViewController {
         navigationController?.popViewController(animated: true)
     }
 
+    // MARK: - キーボード関連
     func addNotification() {
-
         let nc = NotificationCenter.default
 
         // キーボード表示
@@ -83,13 +90,11 @@ private extension MemoViewController {
                        selector: #selector(keyboardWillShow(notification:)),
                        name: .UIKeyboardWillShow,
                        object: nil)
-
         // キーボード変化
         nc.addObserver(self,
                        selector: #selector(keyboardWillChangeFrame(notification:)),
                        name: .UIKeyboardWillChangeFrame,
                        object: nil)
-
         // キーボード非表示
         nc.addObserver(self,
                        selector: #selector(keyboardWillHide),
@@ -110,39 +115,9 @@ private extension MemoViewController {
     }
 
     func changeTextViewBottom(notification: Notification) {
-
         guard let rect = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect else {
             return
         }
         textViewBottom.constant = rect.height
-    }
-
-    // MARK: - メモ登録
-    func createMemo(from text: String) -> MemoModel {
-
-        let lines = text.lines
-
-        let model = MemoModel()
-        model.title = lines.first ?? ""
-        model.lastModify = Date()
-        model.text = lines.dropFirst().joined(separator: Constants.lineFeed)
-
-        return model
-    }
-}
-
-// MARK: - UITextViewDelegate
-extension MemoViewController: UITextViewDelegate {
-
-    func textViewDidEndEditing(_ textView: UITextView) {
-        guard !textView.text.isEmpty else { return }
-
-        let model = createMemo(from: textView.text)
-        
-        if isNew {
-            MemoDao.add(model: model)
-        } else {
-            MemoDao.update(model: model)
-        }
     }
 }

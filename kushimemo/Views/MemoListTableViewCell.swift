@@ -21,7 +21,7 @@ final class MemoListTableViewCell: UITableViewCell {
 
             titleLabel.text = memo.title
             lastModifyLabel.text = memo.lastModify.dateStyle()
-            textBodyLabel.text = memo.text
+            textBodyLabel.text = memo.textBody
         }
     }
 }

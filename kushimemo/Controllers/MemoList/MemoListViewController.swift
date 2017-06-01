@@ -14,7 +14,6 @@ final class MemoListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet fileprivate weak var toolbar: UIToolbar!
     @IBOutlet fileprivate weak var memoCountLabel: UIBarButtonItem!
-
     fileprivate let dataSource = MemoListProvider()
     fileprivate var alert: UIAlertController!
 
@@ -22,12 +21,12 @@ final class MemoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        loadMemo()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadMemo()
+
+        dataSource.add(memos: MemoDao.findAll())
         reloadData()
     }
 
@@ -43,7 +42,6 @@ final class MemoListViewController: UIViewController {
 extension MemoListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
         tableView.deselectRow(at: indexPath, animated: true)
 
         guard !isEditing else { return }
@@ -83,18 +81,12 @@ private extension MemoListViewController {
         toggleAddAndDeleteAllButton(editing: false)
     }
 
-    func loadMemo() {
-        let memos = MemoDao.findAll().sorted { $0.lastModify > $1.lastModify }
-        dataSource.add(memos: memos)
-    }
-
     func reloadData() {
         tableView.reloadData()
         updateMemoCount()
     }
 
     func updateMemoCount() {
-
         if dataSource.memos.isEmpty {
             memoCountLabel.title = "LIST_NODATA".localized()
         } else {
@@ -106,6 +98,7 @@ private extension MemoListViewController {
     func toggleAddAndDeleteAllButton(editing: Bool) {
 
         guard var items = toolbar.items else { return }
+
         let toggleButton: UIBarButtonItem
 
         if editing {
@@ -119,7 +112,6 @@ private extension MemoListViewController {
                                            target: self,
                                            action: #selector(didTapAddMemoButton))
         }
-
         items[0] = toggleButton
         toolbar.setItems(items, animated: true)
     }

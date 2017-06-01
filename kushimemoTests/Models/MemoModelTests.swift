@@ -27,22 +27,23 @@ class MemoModelTests: XCTestCase {
 
     func testMemoModelDefault() {
 
-        XCTAssertEqual(memo.memoID, 1)
-        XCTAssertEqual(memo.title, "")
+        XCTAssertEqual(memo.memoID, 0)
+        XCTAssertEqual(memo.memo, "")
         XCTAssertNotNil(memo.lastModify)
-        XCTAssertEqual(memo.text, "")
+        XCTAssertEqual(memo.title, "")
+        XCTAssertEqual(memo.textBody, "")
     }
 
     func testMemoModel() {
 
         memo.memoID = 2
-        memo.title = "タイトル"
+        memo.memo = "タイトル\n本文"
         memo.lastModify = "2017/01/01".toDate(dateFormat: "yyyy/MM/dd")
-        memo.text = "本文"
 
         XCTAssertEqual(memo.memoID, 2)
-        XCTAssertEqual(memo.title, "タイトル")
+        XCTAssertEqual(memo.memo, "タイトル\n本文")
         XCTAssertEqual(memo.lastModify.toStr(dateFormat: "yyyy/MM/dd"), "2017/01/01")
-        XCTAssertEqual(memo.text, "本文")
+        XCTAssertEqual(memo.title, "タイトル")
+        XCTAssertEqual(memo.textBody, "本文")
     }
 }

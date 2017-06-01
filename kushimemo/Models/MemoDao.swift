@@ -13,28 +13,27 @@ final class MemoDao {
 
     static let dao = RealmDaoHelper<MemoModel>()
 
-    static func add(model: MemoModel) {
+    static func add(memo: String) {
 
         let object = MemoModel()
         object.memoID = MemoDao.dao.newId()!
-        object.title = model.title
-        object.lastModify = model.lastModify
-        object.text = model.text
+        object.memo = memo
+        object.lastModify = Date()
 
         MemoDao.dao.add(d: object)
     }
 
     static func update(model: MemoModel) {
 
-        guard let object = dao.findFirst(key: model.memoID as AnyObject) else {
+        guard let target = dao.findFirst(key: model.memoID as AnyObject) else {
             return
         }
 
-        _ = dao.update(d: object, block: { () -> Void in
-            object.title = model.title
-            object.lastModify = model.lastModify
-            object.text = model.text
-        })
+        let object = MemoModel()
+        object.memoID = target.memoID
+        object.memo = model.memo
+        object.lastModify = Date()
+        _ = dao.update(d: object)
     }
 
     static func delete(memoID: Int) {
@@ -51,7 +50,9 @@ final class MemoDao {
     }
 
     static func findAll() -> [MemoModel] {
-        let objects = MemoDao.dao.findAll()
+        let objects = MemoDao.dao
+            .findAll()
+            .sorted(byKeyPath: "lastModify", ascending: false)
         return objects.map { MemoModel(value: $0) }
     }
 }

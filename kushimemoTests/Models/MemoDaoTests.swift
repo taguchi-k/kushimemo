@@ -28,15 +28,14 @@ class MemoDaoTests: XCTestCase {
         // Setup
         let object = MemoModel()
         object.memoID = 1
-        object.title = "タイトル"
+        object.memo = "タイトル\n本文"
         object.lastModify = "2017/01/01".toDate(dateFormat: "yyyy/MM/dd")
-        object.text = "本文"
 
         // Exercise
-        MemoDao.add(model: object)
+        MemoDao.add(memo: object.memo)
 
         // Verify
-        verifyMemo(memoID: 1, title: "タイトル", lastModifyStr: "2017/01/01", text: "本文")
+        verifyMemo(memoID: 0, title: "タイトル", lastModifyStr: "2017/01/01", text: "本文")
     }
 
     func testUpdateMemo() {

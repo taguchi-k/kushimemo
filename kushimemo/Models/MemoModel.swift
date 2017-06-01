@@ -11,10 +11,19 @@ import RealmSwift
 
 final class MemoModel: Object {
 
-    dynamic var memoID = 1
-    dynamic var title = ""
+    dynamic var memoID = 0
+    dynamic var memo = ""
     dynamic var lastModify = Date()
-    dynamic var text = ""
+
+    /// タイトル（メモ一行目）
+    var title: String {
+        return memo.lines.first ?? ""
+    }
+
+    /// 本本（メモ二行目以降）
+    var textBody: String {
+        return memo.lines.dropFirst().joined(separator: Constants.lineFeed)
+    }
 
     override static func primaryKey() -> String? {
         return "memoID"

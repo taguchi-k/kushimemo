@@ -9,14 +9,15 @@
 import UIKit
 import STV_Extensions
 
-protocol MemoListProviderDelegate {
+protocol MemoListProviderDelegate: class {
     func didDeleteRows()
 }
 
 final class MemoListProvider: NSObject {
 
     var memos = [MemoModel]()
-    var delegate: MemoListProviderDelegate?
+
+    weak var delegate: MemoListProviderDelegate?
 
     func add(memos: [MemoModel]) {
         self.memos = memos
@@ -27,10 +28,7 @@ final class MemoListProvider: NSObject {
     /// - Parameter index: TableViewのインデックス
     /// - Returns: メモ
     func memo(index: Int) -> MemoModel {
-
-        guard index < memos.count else {
-            fatalError("memosの要素数を超えました。")
-        }
+        guard index < memos.count else { fatalError("memosの要素数を超えました。") }
         return memos[index]
     }
 }
@@ -59,10 +57,8 @@ extension MemoListProvider: UITableViewDataSource {
 
         // DBから削除
         MemoDao.delete(memoID: memos[indexPath.row].memoID)
-
         // 配列から削除
         memos.remove(at: indexPath.row)
-
         // table更新
         tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)],
                              with: .fade)
