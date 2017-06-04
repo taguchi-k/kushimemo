@@ -15,13 +15,13 @@ final class MemoListTableViewCell: UITableViewCell {
     @IBOutlet weak var lastModifyLabel: UILabel!
     @IBOutlet weak var textBodyLabel: UILabel!
 
-    var memo: MemoModel? {
+    var memoModel: MemoModel? {
         didSet {
-            guard let memo = memo else { return }
+            guard let memoModel = memoModel else { return }
 
-            titleLabel.text = memo.title
-            lastModifyLabel.text = memo.lastModify.dateStyle()
-            textBodyLabel.text = memo.textBody
+            titleLabel.text = memoModel.title
+            lastModifyLabel.text = memoModel.lastModify.dateStyle()
+            textBodyLabel.text = memoModel.textBody
         }
     }
 }

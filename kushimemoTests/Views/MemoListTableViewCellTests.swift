@@ -51,7 +51,7 @@ class MemoListTableViewCellTests: XCTestCase {
         let memoModel = MemoModel()
         memoModel.memo = "タイトル\n本文"
         memoModel.lastModify = "2017/01/01".toDate(dateFormat: "yyyy/MM/dd")
-        cell?.memo = memoModel
+        cell?.memoModel = memoModel
 
         XCTAssertEqual(cell?.titleLabel.text, "タイトル")
         // ここで同年の日付形式チェックもしている
@@ -68,7 +68,7 @@ class MemoListTableViewCellTests: XCTestCase {
 
         let memo = MemoModel()
         memo.lastModify = date
-        cell?.memo = memo
+        cell?.memoModel = memo
 
         XCTAssertEqual(cell?.lastModifyLabel.text, date.toStr(dateFormat: "HH:mm"))
     }
@@ -80,7 +80,7 @@ class MemoListTableViewCellTests: XCTestCase {
 
         let memo = MemoModel()
         memo.lastModify = date
-        cell?.memo = memo
+        cell?.memoModel = memo
 
         XCTAssertEqual(cell?.lastModifyLabel.text, "2016/01/01")
     }

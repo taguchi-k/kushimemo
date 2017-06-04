@@ -15,12 +15,12 @@ protocol MemoListProviderDelegate: class {
 
 final class MemoListProvider: NSObject {
 
-    var memos = [MemoModel]()
+    var memoModels = [MemoModel]()
 
     weak var delegate: MemoListProviderDelegate?
 
-    func add(memos: [MemoModel]) {
-        self.memos = memos
+    func add(memoModels: [MemoModel]) {
+        self.memoModels = memoModels
     }
 
     /// 該当のメモを取得する
@@ -28,8 +28,8 @@ final class MemoListProvider: NSObject {
     /// - Parameter index: TableViewのインデックス
     /// - Returns: メモ
     func memo(index: Int) -> MemoModel {
-        guard index < memos.count else { fatalError("memosの要素数を超えました。") }
-        return memos[index]
+        guard index < memoModels.count else { fatalError("memoModelsの要素数を超えました。") }
+        return memoModels[index]
     }
 }
 
@@ -37,14 +37,14 @@ final class MemoListProvider: NSObject {
 extension MemoListProvider: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return memos.count
+        return memoModels.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(
             withIdentifier: MemoListTableViewCell.className) as! MemoListTableViewCell
-        cell.memo = memos[indexPath.row]
+        cell.memoModel = memoModels[indexPath.row]
 
         return cell
     }
@@ -56,9 +56,9 @@ extension MemoListProvider: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 
         // DBから削除
-        MemoDao.delete(memoID: memos[indexPath.row].memoID)
+        MemoDao.delete(memoID: memoModels[indexPath.row].memoID)
         // 配列から削除
-        memos.remove(at: indexPath.row)
+        memoModels.remove(at: indexPath.row)
         // table更新
         tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)],
                              with: .fade)

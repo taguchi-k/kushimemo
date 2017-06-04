@@ -26,7 +26,7 @@ final class MemoListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        dataSource.add(memos: MemoDao.findAll())
+        dataSource.add(memoModels: MemoDao.findAll())
         reloadData()
     }
 
@@ -46,8 +46,8 @@ extension MemoListViewController: UITableViewDelegate {
 
         guard !isEditing else { return }
 
-        let memo = dataSource.memo(index: indexPath.row)
-        let vc = MemoViewController.create(memo: memo)
+        let memoModel = dataSource.memo(index: indexPath.row)
+        let vc = MemoViewController.create(memoModel: memoModel)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -65,7 +65,7 @@ extension MemoListViewController: MemoAlertHelperDelegate {
 
     func deleteAll() {
         MemoDao.deleteAll()
-        dataSource.add(memos: [])
+        dataSource.add(memoModels: [])
         reloadData()
     }
 }
@@ -78,7 +78,7 @@ private extension MemoListViewController {
         tableView.dataSource = dataSource
         dataSource.delegate = self
         tableView.tableFooterView = UIView()
-        toggleAddAndDeleteAllButton(editing: false)
+        toggleAddAndDeleteAllButton(editing: isEditing)
     }
 
     func reloadData() {
@@ -87,10 +87,10 @@ private extension MemoListViewController {
     }
 
     func updateMemoCount() {
-        if dataSource.memos.isEmpty {
+        if dataSource.memoModels.isEmpty {
             memoCountLabel.title = "LIST_NODATA".localized()
         } else {
-            memoCountLabel.title = String(format: "LIST_COUNT".localized(), dataSource.memos.count)
+            memoCountLabel.title = String(format: "LIST_COUNT".localized(), dataSource.memoModels.count)
         }
     }
 

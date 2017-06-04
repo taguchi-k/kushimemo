@@ -13,14 +13,14 @@ final class MemoViewController: UIViewController {
 
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var textViewBottom: NSLayoutConstraint!
-    fileprivate var memo: MemoModel?
+    fileprivate var memoModel: MemoModel?
 
     // MARK: - Factory
-    static func create(memo: MemoModel? = nil) -> MemoViewController {
+    static func create(memoModel: MemoModel? = nil) -> MemoViewController {
 
         if let vc = UIStoryboard.viewController(storyboardName: MemoViewController.className,
                                                 identifier: MemoViewController.className) as? MemoViewController {
-            vc.memo = memo
+            vc.memoModel = memoModel
             return vc
         }
         fatalError("unwap MemoViewController")
@@ -44,10 +44,10 @@ extension MemoViewController: UITextViewDelegate {
 
         guard !textView.text.isEmpty else { return }
 
-        if let memo = memo {
-            let model = memo
-            model.memo = textView.text
-            MemoDao.update(model: model)
+        if let memoModel = memoModel {
+            let lastModel = memoModel
+            lastModel.memo = textView.text
+            MemoDao.update(model: lastModel)
         } else {
             MemoDao.add(memo: textView.text)
         }
@@ -65,7 +65,7 @@ private extension MemoViewController {
     }
 
     func setupTextView() {
-        textView.text = memo?.memo
+        textView.text = memoModel?.memo
         textView.becomeFirstResponder()
     }
 

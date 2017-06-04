@@ -21,15 +21,15 @@ class MemoListProviderTests: XCTestCase {
         super.tearDown()
     }
 
-    func testMemosCount() {
-        XCTAssertEqual(dataSource.memos.count, 0)
+    func testmemoModelsCount() {
+        XCTAssertEqual(dataSource.memoModels.count, 0)
     }
 
-    func testAddMemosCount() {
+    func testAddmemoModelsCount() {
 
-        let memos = [MemoModel(), MemoModel(), MemoModel()]
-        dataSource.add(memos: memos)
+        let memoModels = [MemoModel(), MemoModel(), MemoModel()]
+        dataSource.add(memoModels: memoModels)
 
-        XCTAssertEqual(dataSource.memos.count, 3)
+        XCTAssertEqual(dataSource.memoModels.count, 3)
     }
 }
