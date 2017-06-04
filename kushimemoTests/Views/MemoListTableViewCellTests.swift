@@ -48,11 +48,10 @@ class MemoListTableViewCellTests: XCTestCase {
 
     func testConfigCell() {
 
-        let memo = MemoModel()
-        memo.title = "タイトル"
-        memo.lastModify = "2017/01/01".toDate(dateFormat: "yyyy/MM/dd")
-        memo.text = "本文"
-        cell?.memo = memo
+        let memoModel = MemoModel()
+        memoModel.memo = "タイトル\n本文"
+        memoModel.lastModify = "2017/01/01".toDate(dateFormat: "yyyy/MM/dd")
+        cell?.memo = memoModel
 
         XCTAssertEqual(cell?.titleLabel.text, "タイトル")
         // ここで同年の日付形式チェックもしている

@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import STV_Extensions
 
 @testable import kushimemo
 
@@ -23,93 +22,83 @@ class MemoDaoTests: XCTestCase {
         super.tearDown()
     }
 
+    /// 登録できるか確認する
     func testAddMemo() {
-
-        // Setup
-        let object = MemoModel()
-        object.memoID = 1
-        object.memo = "タイトル\n本文"
-        object.lastModify = "2017/01/01".toDate(dateFormat: "yyyy/MM/dd")
-
-        // Exercise
-        MemoDao.add(memo: object.memo)
-
-        // Verify
-        verifyMemo(memoID: 0, title: "タイトル", lastModifyStr: "2017/01/01", text: "本文")
+        MemoDao.add(memo: "タイトル\n本文")
+        verifyMemo(memoID: 1, title: "タイトル", textBody: "本文")
     }
 
+    /// 登録できるか確認する（本文がないケース）
+    func testAddMemo_ForNoDescription() {
+        MemoDao.add(memo: "タイトル")
+        verifyMemo(memoID: 1, title: "タイトル", textBody: "")
+    }
+
+    /// 変更できるか確認する
     func testUpdateMemo() {
 
         // Setup
-        let object = MemoModel()
-        object.memoID = 1
-        object.title = "タイトル"
-        object.lastModify = "2017/01/01".toDate(dateFormat: "yyyy/MM/dd")
-        object.text = "本文"
+        MemoDao.add(memo: "タイトル\n本文")
 
         // Exercise
-        MemoDao.add(model: object)
-        object.title = "タイトル更新"
-        object.text = "本文更新"
-        MemoDao.update(model: object)
+        let result = MemoDao.findAll().first
+        result?.memo = "タイトル更新\n本文更新"
+        MemoDao.update(model: result!)
 
         // Verify
-        verifyMemo(memoID: 1, title: "タイトル更新", lastModifyStr: "2017/01/01", text: "本文更新")
+        verifyMemo(memoID: 1, title: "タイトル更新", textBody: "本文更新")
     }
 
+    /// 削除できるか確認する
     func testDeleteMemo() {
-
-        // Setup
-        let object = MemoModel()
-        object.memoID = 1
-        object.title = "タイトル"
-        object.lastModify = "2017/01/01".toDate(dateFormat: "yyyy/MM/dd")
-        object.text = "本文"
-
-        // Exercise
-        MemoDao.add(model: object)
+        MemoDao.add(memo: "タイトル\n本文")
         MemoDao.delete(memoID: 1)
-
-        // Verify
         verifyCount(count: 0)
     }
 
+    /// メモが取得できるか？
     func testFindAllMemo() {
 
-        // Setup
-        let memos = [MemoModel(), MemoModel(), MemoModel()]
+        MemoDao.add(memo: "タイトル1\n本文")
+        MemoDao.add(memo: "タイトル2\n本文")
+        MemoDao.add(memo: "タイトル3\n本文")
 
-        // Exercise
-        memos.forEach {
-            MemoDao.add(model: $0)
-        }
-
-        // Verify
         verifyCount(count: 3)
     }
 
-    func testFindMemo() {
+    /// メモが更新日の降順で取得されるか？
+    func testFindAllMemo_ForOrder() {
 
-        // Setup
-        let object = MemoModel()
-        object.memoID = 1
-        object.title = "タイトル"
-        object.lastModify = "2017/01/01".toDate(dateFormat: "yyyy/MM/dd")
-        object.text = "本文"
+        MemoDao.add(memo: "タイトル1\n本文1")
+        sleep(1)
+        MemoDao.add(memo: "タイトル2\n本文2")
+        sleep(1)
+        MemoDao.add(memo: "タイトル3\n本文3")
 
-        // Exercise
-        MemoDao.add(model: object)
-        let result = MemoDao.findByID(memoID: 1)
+        let result = MemoDao.findAll()
 
-        //Verify
-        XCTAssertEqual(result?.memoID, 1)
+        XCTAssertEqual("タイトル3", result[0].title)
+        XCTAssertEqual("タイトル2", result[1].title)
+        XCTAssertEqual("タイトル1", result[2].title)
+    }
+
+    /// 該当のメモが取得できるか？
+    func testFindByIDMemo() {
+
+        MemoDao.add(memo: "タイトル1\n本文1")
+        MemoDao.add(memo: "タイトル2\n本文2")
+        MemoDao.add(memo: "タイトル3\n本文3")
+
+        let result = MemoDao.findByID(memoID: 2)
+        XCTAssertEqual("タイトル2", result?.title)
+        XCTAssertEqual("本文2", result?.textBody)
     }
 }
 
 // MARK: - private method
 private extension MemoDaoTests {
 
-    func verifyMemo(memoID: Int, title: String, lastModifyStr: String, text: String) {
+    func verifyMemo(memoID: Int, title: String, textBody: String) {
 
         let result = MemoDao.findAll()
 
@@ -119,12 +108,8 @@ private extension MemoDaoTests {
             XCTAssertEqual(resultTitle, title)
         }
 
-        if let lastModify = result.first?.lastModify.toStr(dateFormat: "yyyy/MM/dd") {
-            XCTAssertEqual(lastModify, lastModifyStr)
-        }
-
-        if let resultText = result.first?.text {
-            XCTAssertEqual(resultText, text)
+        if let resultTextBody = result.first?.textBody {
+            XCTAssertEqual(resultTextBody, textBody)
         }
     }
     
