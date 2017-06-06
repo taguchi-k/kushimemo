@@ -12,8 +12,8 @@ import STV_Extensions
 final class MemoListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet fileprivate weak var toolbar: UIToolbar!
-    @IBOutlet fileprivate weak var memoCountLabel: UIBarButtonItem!
+    @IBOutlet weak var toolbar: UIToolbar!
+    @IBOutlet weak var memoCountLabel: UIBarButtonItem!
     fileprivate let dataSource = MemoListProvider()
     fileprivate var alert: UIAlertController!
 
