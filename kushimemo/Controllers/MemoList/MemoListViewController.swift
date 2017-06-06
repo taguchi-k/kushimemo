@@ -67,6 +67,7 @@ extension MemoListViewController: MemoAlertHelperDelegate {
         MemoDao.deleteAll()
         dataSource.add(memoModels: [])
         reloadData()
+        isEditing = false
     }
 }
 
